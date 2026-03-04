@@ -12,24 +12,25 @@ namespace Minecraft
 
 
 
-        public override void Dismantle(Tools tool) // <--- Jetzt passt es zum virtual oben!
+        public override bool Dismantle(Tools tool)
         {
             base.SetConsoleColor();
 
             if (tool.Type != ToolType.DiamandSpitzHacke)
             {
                 Console.WriteLine("-> Das Tool ist zu schwach für Obsidian! (0 Schaden)");
-                return;
+                return false; 
             }
 
-            // Schaden berechnen (Obsidian ist zäh, also kein Bonus-Schaden hier)
             CurrentHp -= tool.Power;
-            Console.WriteLine($"Diamant-Power! Obsidian HP: {Math.Max(0, CurrentHp)}");
+            Console.WriteLine($"Diamant-Power! Obsidian HP: {Math.Max(0, CurrentHp)}/{maxHealth}");
 
             if (CurrentHp <= 0)
             {
-                Console.WriteLine(">>> Obsidian wurde mühsam abgebaut! <<<");
+                Console.WriteLine(">>> Obsidian wurde erfolgreich abgebaut! <<<");
             }
+
+            return true; 
         }
     }
 }

@@ -8,7 +8,10 @@ namespace Minecraft
 {
     internal class Woodblock : Block
     {
-        public Woodblock() : base("Holz", 15, "Axt", BlockColor.Red, true) { }
+        public Woodblock() : base("Holz", 15, "Axt", BlockColor.Red, true) 
+        {
+            
+        }
 
 
     }

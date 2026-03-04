@@ -61,7 +61,7 @@ namespace Minecraft
             }
         }
 
-        public virtual void Dismantle(Tools tool) 
+        public virtual bool Dismantle(Tools tool) 
         {
             SetConsoleColor();
 
@@ -77,14 +77,29 @@ namespace Minecraft
             }
 
             Console.ResetColor();
+
+            return true;
         }
 
-        public void MineBlock(Tools tool)
+        public void MineBlock(Tools tool, Dictionary<string, int> inventory)
         {
             Console.WriteLine($"Starte Abbau von {Name}...");
             while (CurrentHp > 0)
             {
-                Dismantle(tool);
+                bool success = Dismantle(tool);
+                if (!success)
+                {
+                    Console.WriteLine("Abbau abgebrochen: Falsches Werkzeug!"); 
+                    return;
+                }
+            }
+            if (inventory.ContainsKey(this.Name))
+            {
+                inventory[this.Name]++;
+            }
+            else
+            {
+                inventory[this.Name] = 1;
             }
         }
 
